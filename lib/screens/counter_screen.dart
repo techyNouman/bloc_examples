@@ -1,6 +1,6 @@
-import 'package:bloc_examples/bloc/counter_bloc.dart';
-import 'package:bloc_examples/bloc/counter_event.dart';
-import 'package:bloc_examples/bloc/counter_state.dart';
+import 'package:bloc_examples/bloc/counter_bloc/counter_bloc.dart';
+import 'package:bloc_examples/bloc/counter_bloc/counter_event.dart';
+import 'package:bloc_examples/bloc/counter_bloc/counter_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
