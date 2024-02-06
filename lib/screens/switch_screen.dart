@@ -16,29 +16,55 @@ class _SwitchScreenState extends State<SwitchScreen> {
       appBar: AppBar(
         title: const Text("Switch"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              Text("Notifications"),
-              BlocBuilder<SwitchBloc, SwitchState>(
-                  builder: (context, state) {
-                    return Switch(value: state.isEnableOrDisable, onChanged: (newValue) {
-                      context.read<SwitchBloc>().add(EnableOrDisableNotification());
-                    });
-                  })
-            ],
-          ),
-          SizedBox(height: 20,),
-          Container(
-            height: 200,
-            color: Colors.red.withOpacity(.2),
-          ),
-          SizedBox(height: 50,),
-          Slider(value: .4, onChanged: (value) {})
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Notifications"),
+                BlocBuilder<SwitchBloc, SwitchState>(
+                  buildWhen: (previous, current)  => previous.isEnableOrDisable != current.isEnableOrDisable,
+                    builder: (context, state) {
+                  print("Notification");
+                  return Switch(
+                      value: state.isEnableOrDisable,
+                      onChanged: (newValue) {
+                        context
+                            .read<SwitchBloc>()
+                            .add(EnableOrDisableNotification());
+                      });
+                })
+              ],
+            ),
+            const SizedBox(height: 20),
+            BlocBuilder<SwitchBloc, SwitchState>(
+                buildWhen: (previous, current)  => previous.sliderValue != current.sliderValue,
+                builder: (context, state) {
+              print("Container");
+              return Container(
+                height: 200,
+                color: Colors.red.withOpacity(state.sliderValue),
+              );
+            }),
+            const SizedBox(height: 50),
+            BlocBuilder<SwitchBloc, SwitchState>(
+                buildWhen: (previous, current)  => previous.sliderValue != current.sliderValue,
+                builder: (context, state) {
+              print("Slider");
+              return Slider(
+                  value: state.sliderValue,
+                  onChanged: (value) {
+                    context
+                        .read<SwitchBloc>()
+                        .add(ScrollSlider(sliderValue: value));
+                  });
+            })
+          ],
+        ),
       ),
     );
   }
