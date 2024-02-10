@@ -1,7 +1,8 @@
 import 'package:bloc_examples/bloc/counter_bloc/counter_bloc.dart';
 import 'package:bloc_examples/bloc/switch_bloc/switch_bloc.dart';
-import 'package:bloc_examples/screens/counter_screen.dart';
-import 'package:bloc_examples/screens/switch_screen.dart';
+import 'package:bloc_examples/bloc/timer_bloc/ticker.dart';
+import 'package:bloc_examples/bloc/timer_bloc/timer_bloc.dart';
+import 'package:bloc_examples/screens/timer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,13 +18,14 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider(create: (_) => CounterBloc()),
       BlocProvider(create: (_) => SwitchBloc()),
+      BlocProvider(create: (_) => TimerBloc(ticker: const Ticker()))
     ], child:  MaterialApp(
       title: 'Bloc Examples',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SwitchScreen(),
+      home: const TimerScreen(),
     ));
 
   }
