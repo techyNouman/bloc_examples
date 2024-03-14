@@ -39,6 +39,7 @@ dependencies:
   bloc: ^8.1.2
   equatable: ^2.0.5
   wakelock: ^0.6.2
+  http:
 
 dev_dependencies:
   flutter_test:
